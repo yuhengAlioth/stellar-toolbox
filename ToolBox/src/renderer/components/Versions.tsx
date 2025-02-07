@@ -9,6 +9,7 @@ function Versions(): JSX.Element {
       <li className="chrome-version">Chromium v{versions.chrome}</li>
       <li className="node-version">Node v{versions.node}</li>
       <h1 className="text-3xl font-bold underline bg-green-300">Hello world!</h1>
+      <li className="test">测试scss</li>
     </ul>
   )
 }

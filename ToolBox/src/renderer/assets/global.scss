@@ -1,0 +1,24 @@
+body {
+  @apply h-screen;
+}
+
+* {
+  opacity: 0.99;
+}
+.drag {
+  // 拖拽
+  -webkit-app-region: drag;
+}
+.nodrag,
+input,
+select,
+textarea,
+option {
+  // 禁止拖拽
+  -webkit-app-region: no-drag;
+}
+
+.test {
+  background-color: antiquewhite;
+  color: black;
+}
