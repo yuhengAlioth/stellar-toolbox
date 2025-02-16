@@ -1,3 +1,4 @@
+import { Aiming } from '@icon-park/react'
 import { Button, Flex } from 'antd'
 import { useState } from 'react'
 
@@ -31,6 +32,9 @@ function Versions(): JSX.Element {
       <li className="node-version">Node v{versions.node}</li>
       <h1 className="text-3xl font-bold underline bg-green-300">Hello world!</h1>
       <li className="test">测试scss</li>
+      <li>
+        <Aiming theme="outline" size="24" fill="#7BBFEA" strokeLinejoin="bevel" strokeLinecap="butt" />
+      </li>
     </ul>
   )
 }
