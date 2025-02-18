@@ -18,5 +18,6 @@
     "other": "on",
     "comments": "off",
     "strings": "on"
-  }
+  },
+  "files.eol": "\n"
 }
