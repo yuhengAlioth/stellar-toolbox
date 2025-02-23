@@ -44,10 +44,13 @@ export default function SiderLeft() {
               itemSelectedColor: '#8e7cd6',
               collapsedWidth: 48,
               itemHeight: 48,
+              itemBorderRadius: 5,
             },
           },
         }}>
         <Sider
+          width={60}
+          collapsedWidth={60}
           defaultCollapsed={true}
           onBreakpoint={(broken) => {
             console.log(broken)
@@ -75,7 +78,13 @@ export default function SiderLeft() {
                 <div className="h-12 w-12 bg-gradient-to-r from-cyan-500 to-blue-500" />
               </div>
               {/* 菜单 */}
-              <Menu mode="inline" selectedKeys={[location.pathname]} items={items} onClick={handelClick} />
+              <Menu
+                style={{ width: 60 }}
+                mode="inline"
+                selectedKeys={[location.pathname]}
+                items={items}
+                onClick={handelClick}
+              />
             </div>
             {/* 底部菜单容器 */}
             <div
