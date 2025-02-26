@@ -22,3 +22,31 @@ option {
   background-color: antiquewhite;
   color: black;
 }
+
+/* 美化滚动条 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  width: 6px;
+  background: rgba(#e1e1e1, 0.1);
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #8f8f91;
+  // background-clip: padding-box;
+  max-height: 8px;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #6e787a;
+}
