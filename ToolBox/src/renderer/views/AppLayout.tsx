@@ -21,6 +21,9 @@ export default function AppLayout() {
                 padding: 24,
                 background: colorBgContainer,
                 borderRadius: borderRadiusLG,
+                height: '100%',
+                overflowY: 'auto', // 启用垂直滚动
+                scrollbarWidth: 'none', // 隐藏滚动条
               }}>
               {/* 路由出口 */}
               {/* <Outlet /> */}

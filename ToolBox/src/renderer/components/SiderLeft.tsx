@@ -1,4 +1,4 @@
-import { AllApplication, Dislike } from '@icon-park/react'
+import { DataScreen, Dislike } from '@icon-park/react'
 import { ConfigProvider, Menu, MenuProps } from 'antd'
 import Sider from 'antd/es/layout/Sider'
 import { useEffect } from 'react'
@@ -9,7 +9,7 @@ type MenuItem = Required<MenuProps>['items'][number]
 const items: MenuItem[] = [
   {
     key: '/',
-    icon: <AllApplication size="16" />,
+    icon: <DataScreen size="16" />,
     label: '设备信息',
   },
   { key: '/version', icon: <Dislike size="16" />, label: '编程环境' },
