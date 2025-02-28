@@ -1,8 +1,8 @@
 import { electronAPI } from '@electron-toolkit/preload'
 import { contextBridge } from 'electron'
 
-// Custom APIs for renderer
-const api = {}
+// 预加载脚本的定制API
+import api from './api'
 
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise

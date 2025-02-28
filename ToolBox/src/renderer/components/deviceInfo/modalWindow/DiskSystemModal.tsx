@@ -1,44 +1,47 @@
-import { diskType } from '@renderer/types/diskType'
+import { diskSystemType } from '@renderer/types/diskSystemType'
 import convertUtil from '@renderer/utils/convertUtil'
 import type { DescriptionsProps } from 'antd'
 import { Alert, Descriptions, Flex, Modal, Tabs } from 'antd'
 
-interface DiskModalProps {
+interface DiskSystemModalProps {
   open: boolean
   onCancel: () => void
-  data: diskType
+  data: diskSystemType
   error?: Error | null
 }
 /**
- * @abstract 设备信息 - 硬盘信息弹窗
+ * @abstract 设备信息 - 磁盘信息弹窗
  */
-export default function DiskModal({ open, onCancel, data, error }: DiskModalProps) {
+export default function DiskSystemModal({ open, onCancel, data, error }: DiskSystemModalProps) {
   const labelMap: Record<string, string> = {
-    device: '设备',
     name: '名称',
-    vendor: '制造商',
-    type: '硬盘类型',
-    size: '实际大小',
-    firmwareRevision: '固件版本',
-    serialNum: '序列号',
-    smartStatus: '硬盘状态',
+    identifier: '标识符',
+    mount: '挂载点',
+    label: '标签名称',
+    fsType: '文件系统类型',
+    uuid: 'UUID',
+    physical: '物理模型',
+    type: '类型',
+    size: '大小',
+    removable: '是否移动硬盘',
   }
 
   const generateItems = (info: Record<string, any>): DescriptionsProps['items'] =>
     Object.entries(info).map(([key, value]) => {
       let formattedValue = String(value)
       if (key === 'size') {
-        formattedValue = convertUtil.formatSize(value)
+        formattedValue = convertUtil.gbConversion(value, 0).toString()
+      } else if (key === 'removable') {
+        formattedValue = value ? '是' : '否'
       }
       return {
         label: labelMap[key] || key.charAt(0).toUpperCase() + key.slice(1),
-        span: { sm: 2, xl: 2 },
         children: formattedValue,
       }
     })
 
   const otherTabs = Object.entries(data).map(([key, value]) => ({
-    label: `硬盘 ${key}`,
+    label: `磁盘 ${value.name}`,
     key: key,
     content: generateItems(value),
   }))
@@ -50,7 +53,7 @@ export default function DiskModal({ open, onCancel, data, error }: DiskModalProp
       <Modal
         open={open}
         centered
-        title="硬盘详情"
+        title="磁盘详情"
         className="rounded-md h-3/5 overflow-y-auto"
         style={{ scrollbarWidth: 'none' }}
         width={1000}

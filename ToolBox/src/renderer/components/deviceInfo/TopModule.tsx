@@ -1,15 +1,51 @@
+import convertUtil from '@renderer/utils/convertUtil'
 import { Button, Card, Col, ConfigProvider, Row } from 'antd'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import DiskDataGraph from './graph/DiskDataGraph'
-import DiskModal from './modalWindow/DiskModal'
-import ShortcutPanel from './panel/ShortcutPanel'
 import SystemMemoryGraph from './graph/SystemMemoryGraph'
+import DiskSpaceModal from './modalWindow/DiskSpaceModal'
+import ShortcutPanel from './panel/ShortcutPanel'
 
 /**
  * @abstract 设备信息 - 顶部模块
  */
 export default function TopModule() {
   const [open, setOpen] = useState(false)
+  const [data, setData] = useState([])
+  const [error, setError] = useState<Error | null>(null)
+
+  const fetchDiskData = async () => {
+    try {
+      // 获取数据
+      const info = await window.api.fsSizeInfo()
+      const diskData = info.map((disk) => ({
+        diskName: `${disk.fs}盘\n${convertUtil.gbConversion(disk.size, 0)} GB`,
+        diskData: [
+          {
+            type: `已使用(${convertUtil.gbConversion(disk.used, 1)}GB)`,
+            value: convertUtil.percentageConversion(disk.used, disk.size, 1),
+          },
+          {
+            type: `未使用(${convertUtil.gbConversion(disk.available, 1)}GB)`,
+            value: convertUtil.percentageConversion(disk.available, disk.size, 1),
+          },
+        ],
+      }))
+      setData(diskData)
+    } catch (err) {
+      if (err instanceof Error) {
+        // 确保 err 是 Error 类型
+        setError(err)
+      } else {
+        // 将非 Error 类型的错误转换为 Error 对象
+        setError(new Error(String(err)))
+      }
+    }
+  }
+
+  useEffect(() => {
+    fetchDiskData()
+  }, [])
 
   const showModal = () => {
     setOpen(true)
@@ -19,22 +55,6 @@ export default function TopModule() {
     setOpen(false)
   }
 
-  const data = [
-    {
-      diskName: 'C盘',
-      diskData: [
-        { type: '已使用', value: 58 },
-        { type: '未使用', value: 42 },
-      ],
-    },
-    {
-      diskName: 'D盘',
-      diskData: [
-        { type: '已使用', value: 70 },
-        { type: '未使用', value: 30 },
-      ],
-    },
-  ]
   return (
     <ConfigProvider
       theme={{
@@ -58,7 +78,7 @@ export default function TopModule() {
               </Button>
             }>
             <DiskDataGraph />
-            <DiskModal open={open} data={data} onCancel={handleCancel} />
+            <DiskSpaceModal open={open} data={data} error={error} onCancel={handleCancel} />
           </Card>
         </Col>
         {/* 系统内存 */}

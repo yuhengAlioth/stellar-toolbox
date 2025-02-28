@@ -1,7 +1,8 @@
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
-import { app, BrowserWindow, ipcMain, shell } from 'electron'
+import { app, BrowserWindow, shell } from 'electron'
 import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
+import ipc from './indexIpc'
 
 function createWindow(): void {
   // Create the browser window.
@@ -9,6 +10,8 @@ function createWindow(): void {
     width: 900,
     height: 670,
     show: false,
+    // 置顶
+    // alwaysOnTop: true,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
@@ -49,10 +52,9 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
-
   createWindow()
+  // 使用IPC通信
+  ipc()
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the

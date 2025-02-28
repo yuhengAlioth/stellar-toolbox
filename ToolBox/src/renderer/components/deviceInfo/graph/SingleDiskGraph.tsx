@@ -35,7 +35,7 @@ export default function SingleDiskGraph({ data, diskName }) {
           x: '50%',
           y: '50%',
           textAlign: 'center',
-          fontSize: 30,
+          fontSize: 20,
           fontStyle: 'bold',
         },
       },

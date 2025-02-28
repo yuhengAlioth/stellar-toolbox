@@ -1,34 +1,31 @@
-import { diskType } from '@renderer/types/diskType'
-import convertUtil from '@renderer/utils/convertUtil'
+import { graphicsControllerType } from '@renderer/types/graphicsControllerType'
 import type { DescriptionsProps } from 'antd'
 import { Alert, Descriptions, Flex, Modal, Tabs } from 'antd'
 
-interface DiskModalProps {
+interface GraphicsControllerModalProps {
   open: boolean
   onCancel: () => void
-  data: diskType
+  data: graphicsControllerType
   error?: Error | null
 }
 /**
- * @abstract 设备信息 - 硬盘信息弹窗
+ * @abstract 设备信息 - 显卡信息弹窗
  */
-export default function DiskModal({ open, onCancel, data, error }: DiskModalProps) {
+export default function GraphicsControllerModal({ open, onCancel, data, error }: GraphicsControllerModalProps) {
   const labelMap: Record<string, string> = {
-    device: '设备',
-    name: '名称',
     vendor: '制造商',
-    type: '硬盘类型',
-    size: '实际大小',
-    firmwareRevision: '固件版本',
-    serialNum: '序列号',
-    smartStatus: '硬盘状态',
+    model: '图形控制器模型名称',
+    subDeviceId: '子设备ID',
+    bus: '总线',
+    vram: '影像随机接达记忆器(显存)',
+    vramDynamic: '显存动态',
   }
 
   const generateItems = (info: Record<string, any>): DescriptionsProps['items'] =>
     Object.entries(info).map(([key, value]) => {
       let formattedValue = String(value)
-      if (key === 'size') {
-        formattedValue = convertUtil.formatSize(value)
+      if (key === 'vramDynamic') {
+        formattedValue = value ? '开启' : '关闭'
       }
       return {
         label: labelMap[key] || key.charAt(0).toUpperCase() + key.slice(1),
@@ -38,7 +35,7 @@ export default function DiskModal({ open, onCancel, data, error }: DiskModalProp
     })
 
   const otherTabs = Object.entries(data).map(([key, value]) => ({
-    label: `硬盘 ${key}`,
+    label: `显卡 ${key}`,
     key: key,
     content: generateItems(value),
   }))
@@ -50,7 +47,7 @@ export default function DiskModal({ open, onCancel, data, error }: DiskModalProp
       <Modal
         open={open}
         centered
-        title="硬盘详情"
+        title="显卡详情"
         className="rounded-md h-3/5 overflow-y-auto"
         style={{ scrollbarWidth: 'none' }}
         width={1000}
