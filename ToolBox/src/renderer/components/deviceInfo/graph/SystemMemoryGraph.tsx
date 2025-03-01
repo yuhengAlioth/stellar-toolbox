@@ -7,7 +7,8 @@ import { useEffect, useState } from 'react'
  * @abstract 系统内存状态图
  */
 export default function SystemMemoryGraph() {
-  const [data, setData] = useState<number>()
+  const [data, setData] = useState<number>(0)
+  const [displayData, setDisplayData] = useState<number>(0) // 用于显示的百分比值
   const [total, setTotal] = useState<string>()
   const [used, setUsed] = useState<string>()
 
@@ -36,13 +37,39 @@ export default function SystemMemoryGraph() {
     return () => clearInterval(intervalId)
   }, [])
 
+  useEffect(() => {
+    // 当 data 发生变化时，启动滚动动画
+    if (data !== displayData) {
+      let start: number | null = null
+
+      const animate = (timestamp: number) => {
+        if (!start) start = timestamp
+        const elapsed = timestamp - start
+
+        // 计算当前进度
+        const progress = Math.min(elapsed / 1000, 1) // 1秒内完成动画
+        const currentData = displayData + (data - displayData) * progress
+
+        // 格式化 currentData 为两位小数
+        setDisplayData(parseFloat(currentData.toFixed(2)))
+
+        if (progress < 1) {
+          requestAnimationFrame(animate)
+        }
+      }
+
+      requestAnimationFrame(animate)
+    }
+  }, [data, displayData])
+
   const config = {
-    percent: data,
+    percent: displayData,
     style: {
       outlineBorder: 6,
       outlineDistance: 4,
       waveLength: 70,
       backgroundFill: '#e9f0f6',
+      textFill: '#21072a',
     },
   }
   return (

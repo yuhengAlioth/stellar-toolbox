@@ -1,5 +1,5 @@
 import { Pie } from '@ant-design/charts'
-import { Alert } from 'antd'
+import { Alert, Spin } from 'antd'
 import { useEffect, useState } from 'react'
 
 /**
@@ -8,9 +8,11 @@ import { useEffect, useState } from 'react'
 export default function DiskDataGraph() {
   const [data, setData] = useState([])
   const [error, setError] = useState<Error | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   const fetchDiskData = async () => {
     try {
+      setIsLoading(true) // 设置加载状态为 true
       // 获取数据
       const info = await window.api.fsSizeInfo()
       const diskData = info.map((disk) => ({
@@ -26,6 +28,8 @@ export default function DiskDataGraph() {
         // 将非 Error 类型的错误转换为 Error 对象
         setError(new Error(String(err)))
       }
+    } finally {
+      setIsLoading(false) // 设置加载状态为 false
     }
   }
   useEffect(() => {
@@ -68,8 +72,14 @@ export default function DiskDataGraph() {
     ],
   }
   return (
-    <div style={{ height: 290 }}>
-      {error ? <Alert message="Error" description={error.message} type="error" showIcon /> : <Pie {...config} />}
+    <div style={{ height: 290, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      {error ? (
+        <Alert message="Error" description={error.message} type="error" showIcon />
+      ) : isLoading ? (
+        <Spin size="large" /> // 显示加载组件
+      ) : (
+        <Pie {...config} />
+      )}
     </div>
   )
 }

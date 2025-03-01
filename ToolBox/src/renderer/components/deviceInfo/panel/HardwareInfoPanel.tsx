@@ -112,14 +112,14 @@ export default function HardwareInfoPanel() {
         <Card hoverable={true} className="w-54 h-24" onClick={() => showModal(HardwareCardType.DISKSYSTEM)}>
           <Meta avatar={<Disk size="24" />} title="磁盘" description="检测磁盘信息" />
         </Card>
+        <Card hoverable={true} className="w-54 h-24" onClick={() => showModal(HardwareCardType.BATTERY)}>
+          <Meta avatar={<BatteryWorkingOne size="24" />} title="电池" description="检测电池信息" />
+        </Card>
         <Card hoverable={true} className="w-54 h-24" onClick={() => showModal(HardwareCardType.GRAPHICSCONTROLLERS)}>
           <Meta avatar={<Microscope size="24" />} title="显卡" description="检测显卡信息" />
         </Card>
         <Card hoverable={true} className="w-54 h-24" onClick={() => showModal(HardwareCardType.DISPLAYS)}>
           <Meta avatar={<MonitorOne size="24" />} title="显示器" description="检测显示器信息" />
-        </Card>
-        <Card hoverable={true} className="w-54 h-24" onClick={() => showModal(HardwareCardType.BATTERY)}>
-          <Meta avatar={<BatteryWorkingOne size="24" />} title="电池" description="检测电池器信息" />
         </Card>
       </Flex>
       {open && selectedType === HardwareCardType.SYSTEM && systemData && (
