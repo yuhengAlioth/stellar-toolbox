@@ -1,4 +1,4 @@
-import { DataScreen, Dislike } from '@icon-park/react'
+import { DataScreen, Dislike, SettingTwo } from '@icon-park/react'
 import { ConfigProvider, Menu, MenuProps } from 'antd'
 import Sider from 'antd/es/layout/Sider'
 import { useEffect } from 'react'
@@ -15,6 +15,14 @@ const items: MenuItem[] = [
   { key: '/version', icon: <Dislike size="16" />, label: '编程环境' },
 ]
 
+const bottomItems: MenuItem[] = [
+  {
+    key: '/setting',
+    icon: <SettingTwo size="16" />,
+    label: '设置',
+  },
+]
+
 export default function SiderLeft() {
   const navigate = useNavigate()
   const location = useLocation()
@@ -25,6 +33,12 @@ export default function SiderLeft() {
   const handelClick = (e) => {
     console.log('点击了', e)
     navigate(e.key)
+  }
+
+  const bottomClick = (e) => {
+    if (e.key === '/setting') {
+      window.api.openSettingWindow()
+    }
   }
 
   return (
@@ -93,7 +107,7 @@ export default function SiderLeft() {
                 flexDirection: 'column',
                 justifyContent: 'flex-end',
               }}>
-              <Menu mode="inline" selectedKeys={[location.pathname]} items={items} onClick={handelClick} />
+              <Menu mode="inline" selectedKeys={[location.pathname]} items={bottomItems} onClick={bottomClick} />
             </div>
           </div>
         </Sider>
