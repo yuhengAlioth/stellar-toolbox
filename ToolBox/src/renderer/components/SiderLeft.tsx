@@ -3,6 +3,7 @@ import { ConfigProvider, Menu, MenuProps } from 'antd'
 import Sider from 'antd/es/layout/Sider'
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router'
+import SettingBtn from './SettingBtn'
 
 type MenuItem = Required<MenuProps>['items'][number]
 
@@ -26,6 +27,8 @@ export default function SiderLeft() {
     console.log('点击了', e)
     navigate(e.key)
   }
+
+  // 底部设置，日志按钮
 
   return (
     <>
@@ -93,7 +96,9 @@ export default function SiderLeft() {
                 flexDirection: 'column',
                 justifyContent: 'flex-end',
               }}>
-              <Menu mode="inline" selectedKeys={[location.pathname]} items={items} onClick={handelClick} />
+              <Menu style={{ width: 60 }}>
+                <SettingBtn></SettingBtn>
+              </Menu>
             </div>
           </div>
         </Sider>
