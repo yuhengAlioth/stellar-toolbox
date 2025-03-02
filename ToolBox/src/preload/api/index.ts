@@ -5,11 +5,11 @@ import getDeviceInfo from './getDeviceInfo'
 const api = {
   ...getBasis,
   ...getDeviceInfo,
-  hideSettingWindow: () => {
-    ipcRenderer.send('hideSettingWindow')
-  },
   openSettingWindow: () => {
     ipcRenderer.send('openSettingWindow')
+  },
+  closeSettingWindow: () => {
+    ipcRenderer.send('closeSettingWindow')
   },
 }
 

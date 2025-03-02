@@ -1,10 +1,10 @@
 import { is } from '@electron-toolkit/utils'
-import { BrowserWindow, shell, ipcMain } from 'electron'
+import { BrowserWindow, ipcMain, shell } from 'electron'
 import url from 'node:url'
 import { join } from 'path'
 import icon from '../../../resources/icon.png?asset'
 
-export function settingWindow(): BrowserWindow {
+export function createSettingWindow(): BrowserWindow {
   // 创建窗口
   const settingWindow = new BrowserWindow({
     // maxWidth: 500,
@@ -36,7 +36,7 @@ export function settingWindow(): BrowserWindow {
   // 关闭窗口尺寸调整
   settingWindow.setResizable(false)
   // 开启开发者工具
-  // settingWindow.webContents.openDevTools(
+  settingWindow.webContents.openDevTools()
 
   settingWindow.on('will-resize', (event) => {
     event.preventDefault()
@@ -51,9 +51,7 @@ export function settingWindow(): BrowserWindow {
     shell.openExternal(details.url)
     return { action: 'deny' }
   })
-
-  // HMR for renderer base on electron-vite cli.
-  // Load the remote URL for development or the local html file for production.
+  // 加载页面
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     settingWindow.loadURL(process.env['ELECTRON_RENDERER_URL'] + '/#setting')
   } else {

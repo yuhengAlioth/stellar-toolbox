@@ -1,13 +1,13 @@
 import { CloseSmall, KeyboardOne, Save, SettingOne } from '@icon-park/react'
 import { Card, Menu, Tabs } from 'antd'
-import './index.scss'
 import TabPane from 'antd/es/tabs/TabPane'
 import { useState } from 'react'
+import './index.scss'
 
 export default function SettingView() {
   // 关闭设置页面
   const closeSetting = () => {
-    window.api.hideSettingWindow()
+    window.api.closeSettingWindow()
   }
   // 当前激活的Tab项的key值
   const [activeKey, setActiveKey] = useState('1')

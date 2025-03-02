@@ -3,7 +3,7 @@ import { BrowserWindow, shell } from 'electron'
 import { join } from 'path'
 import icon from '../../../resources/icon.png?asset'
 
-export function createWindow(): BrowserWindow {
+export function createHomeWindow(): BrowserWindow {
   // 创建窗口
   const homeWindow = new BrowserWindow({
     width: 900,
@@ -38,8 +38,6 @@ export function createWindow(): BrowserWindow {
     return { action: 'deny' }
   })
 
-  // HMR for renderer base on electron-vite cli.
-  // Load the remote URL for development or the local html file for production.
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     homeWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
   } else {

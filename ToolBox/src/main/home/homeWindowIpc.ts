@@ -1,20 +1,13 @@
 import { BrowserWindow, ipcMain } from 'electron'
-import { createSettingWindow } from '../setting'
+import { openSettingWindow } from '../setting'
 import systeminformationIpc from './systeminformationIpc'
 
-let settingWindow: BrowserWindow | null = null
-export const homeWindowIpc = (window: BrowserWindow) => {
+export const homeWindowIpc = (win: BrowserWindow) => {
   systeminformationIpc()
 
-  ipcMain.on('hideSettingWindow', () => {
-    settingWindow?.close()
-    settingWindow = null
-  })
+  // 打开设置窗口
   ipcMain.on('openSettingWindow', () => {
-    
-    if (!settingWindow) {
-      console.log('settingWindow')
-      settingWindow = createSettingWindow()
-    }
+    openSettingWindow()
+    console.log('打开设置窗口', win)
   })
 }

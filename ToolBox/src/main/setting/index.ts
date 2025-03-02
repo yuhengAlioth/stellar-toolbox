@@ -1,10 +1,14 @@
 import { BrowserWindow } from 'electron'
-import { settingWindow } from './settingWindow'
+import { createSettingWindow } from './settingWindow'
+import { settingWindowIpc } from './settingWindowIpc'
 
 let win = null as BrowserWindow | null
-const createSettingWindow = () => {
+// 创建设置窗口
+const openSettingWindow = () => {
   // 不让窗口多次创建
-  if (!win) win = settingWindow()
+  if (!win) win = createSettingWindow()
+  // 注册IPC事件
+  settingWindowIpc(win)
   // 关闭窗口时销毁
   win.on('closed', () => {
     win = null
@@ -12,4 +16,4 @@ const createSettingWindow = () => {
   return win
 }
 
-export { createSettingWindow }
+export { openSettingWindow }
