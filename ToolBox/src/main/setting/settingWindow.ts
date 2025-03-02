@@ -7,9 +7,9 @@ import icon from '../../../resources/icon.png?asset'
 export function settingWindow(): BrowserWindow {
   // 创建窗口
   const settingWindow = new BrowserWindow({
-    // maxWidth: 900,
+    // maxWidth: 500,
     width: 500,
-    // minWidth: 900,
+    // minWidth: 500,
     height: 500,
     // maxHeight: 500,
     // minHeight: 500,
@@ -29,7 +29,18 @@ export function settingWindow(): BrowserWindow {
       sandbox: false,
     },
   })
-  settingWindow.webContents.openDevTools()
+  // 关闭窗口菜单
+  settingWindow.setMenu(null)
+  // 关闭窗口最大化
+  settingWindow.setMaximizable(false)
+  // 关闭窗口尺寸调整
+  settingWindow.setResizable(false)
+  // 开启开发者工具
+  // settingWindow.webContents.openDevTools(
+
+  settingWindow.on('will-resize', (event) => {
+    event.preventDefault()
+  })
   settingWindow.on('ready-to-show', () => {
     settingWindow.show()
   })

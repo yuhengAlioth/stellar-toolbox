@@ -23,7 +23,10 @@ export default function SettingView() {
         WebkitAppRegion: 'drag',
       }}>
       <div className="left basis-1/3 bg-gray-100 flex flex-col items-center pt-8 pb-8">
-        <Menu style={{ width: 140, height: 50, backgroundColor: 'transparent', border: 0 }} mode="inline">
+        <Menu
+          style={{ width: 140, height: 50, backgroundColor: 'transparent', border: 0 }}
+          mode="inline"
+          defaultSelectedKeys={['1']}>
           <Menu.Item key="1" style={{ padding: 0 }}>
             <div
               onClick={() => changeTab('1')}
@@ -55,9 +58,15 @@ export default function SettingView() {
           <CloseSmall className="setting-close-icon" onClick={closeSetting} size="24" fill="#333" />
         </div>
         <div className="setting-content flex flex-col items-center">
-          <Card style={{ width: 300 }}>
+          <Card className="card" style={{ width: 300 }}>
             <Tabs className="tab" type="card" activeKey={activeKey} defaultActiveKey="1">
-              <TabPane key="1">选项卡一内容</TabPane>
+              <TabPane key="1">
+                <div className="tab-item flex flex-row  items-center">
+                  <div className="name left basis-1/4">重启</div>
+                  <div className="keyboard left basis-2/4 flex flex-row justify-end pr-3">Ctrl + C</div>
+                  <div className="btn  bg-gray-200 left basis-1/4">修改</div>
+                </div>
+              </TabPane>
               <TabPane key="2">选项卡二内容</TabPane>
               <TabPane key="3">选项卡三内容</TabPane>
             </Tabs>
