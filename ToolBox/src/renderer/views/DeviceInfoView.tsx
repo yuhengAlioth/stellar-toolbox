@@ -5,7 +5,7 @@ import { Space } from 'antd'
 /**
  * @abstract 设备信息页面
  */
-export default function DeviceInfo() {
+export default function DeviceInfoView() {
   return (
     <>
       <Space direction="vertical" size="middle" style={{ display: 'flex' }}>

@@ -5,19 +5,11 @@ import '@renderer/assets/tailwindcss.css'
 
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { HashRouter } from 'react-router'
-import App from './App'
+import { RouterProvider } from 'react-router'
+import router from './router'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    {/* <BrowserRouter> */}
-    <HashRouter>
-      <App />
-      {/* <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/version" element={<Versions />} />
-      </Routes> */}
-    </HashRouter>
-    {/* </BrowserRouter> */}
+    <RouterProvider router={router} />
   </React.StrictMode>,
 )
