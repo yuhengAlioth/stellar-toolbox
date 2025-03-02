@@ -1,0 +1,26 @@
+.setting-item {
+    -webkit-app-region: no-drag;
+}
+.setting-close {
+    .setting-close-icon {
+        -webkit-app-region: no-drag;
+        cursor: pointer;
+    }
+    
+}
+.setting {
+    .left {
+        .ant-menu-item-selected {
+            background-color: #E5E6E8 !important;
+        }
+    }
+    .right {
+        .setting-content {
+            .tab {
+                .ant-tabs-nav {
+                    display: none !important;
+                }
+            }
+        }
+    }
+}
